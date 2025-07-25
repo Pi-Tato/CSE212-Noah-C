@@ -22,7 +22,42 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        var set = new HashSet<string>();
+        var pairSet = new HashSet<string>();
+        foreach (var word in words)
+        {
+            set.Add(word);
+        }
+        string[] pairs;
+        pairs = new string[set.Count];
+
+        for (int i = 0; i < set.Count; i++)
+        {
+            for (int j = 0; j < set.Count; j++)
+            {
+                char[] letters = set.ElementAt(i).ToCharArray();
+                Array.Reverse(letters);
+                if (set.ElementAt(i) == set.ElementAt(j))
+                {
+                    letters.ToString().Trim();
+                    pairs[i] = set.ElementAt(i) + " & " + new string(letters);
+                    if (i == 0 || i == 3)
+                    {
+                        pairSet.Add(pairs[i]);
+                    }
+                }
+            }
+        }
+
+        string[] result;
+        result = new string[pairSet.Count];
+        for (int i = 0; i < pairSet.Count; i++)
+        {
+            result[i] = pairSet.ElementAt(i);
+        }
+        //Console.WriteLine($"[{result[0]}, {result[1]}]");
+        return result;
     }
 
     /// <summary>
@@ -43,6 +78,8 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            Console.WriteLine(fields);
         }
 
         return degrees;
@@ -67,7 +104,25 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        if (word1.Length == word2.Length)
+        {
+            char[] letters1 = word1.ToCharArray();
+            char[] letters2 = word2.ToCharArray();
+            Array.Sort(letters1);
+            Array.Sort(letters2);
+            for (int i = 0; i < letters1.Length; i++)
+            {
+                if (letters1[i] != letters2[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
     /// <summary>
